@@ -10,7 +10,7 @@ int main()
   char Line[MAX_LINE_SIZE];
   char* delimiters = " \t\n";
   char* Command;
-  PList pStudentList=NULL;;
+  PList pStudentList=NULL;
   PCluster pCluster=NULL;
   pStudentList=ListCreate(cloneStudent,destroyStudent,compareStudents,printStudent);
   if(!pStudentList)
