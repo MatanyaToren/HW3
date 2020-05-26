@@ -86,6 +86,9 @@
 		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/defs.h">
 			<Option target="HW3"/>
 		</Unit>
+		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/list.c">
+			<Option target="HW3"/>
+		</Unit>
 		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/list.h">
 			<Option target="HW3"/>
 		</Unit>

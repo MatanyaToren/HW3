@@ -9,6 +9,7 @@ add_executable(HW3
         cluster.h
         defs.h
         list.h
+        list.c
         main.c
         point.h
-        student.h)
+        student.h list.c)
