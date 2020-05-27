@@ -80,9 +80,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/cluster.h">
-			<Option target="HW3"/>
-		</Unit>
 		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/defs.h">
 			<Option target="HW3"/>
 		</Unit>
@@ -90,15 +87,6 @@
 			<Option target="HW3"/>
 		</Unit>
 		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/list.h">
-			<Option target="HW3"/>
-		</Unit>
-		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/main.c">
-			<Option target="HW3"/>
-		</Unit>
-		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/point.h">
-			<Option target="HW3"/>
-		</Unit>
-		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/student.h">
 			<Option target="HW3"/>
 		</Unit>
 		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/CMakeLists.txt">

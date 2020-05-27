@@ -5,7 +5,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "/Users/shlomishetrit/Documents/GitHub/HW3/list.c" "/Users/shlomishetrit/Documents/GitHub/HW3/cmake-build-debug/CMakeFiles/HW3.dir/list.c.o"
-  "/Users/shlomishetrit/Documents/GitHub/HW3/main.c" "/Users/shlomishetrit/Documents/GitHub/HW3/cmake-build-debug/CMakeFiles/HW3.dir/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 
