@@ -1,6 +1,7 @@
 
 #ifndef _LIST_H_
 #define _LIST_H_
+
 #include "defs.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,7 +13,7 @@ typedef void* PElem;
 
 /*User functions*/
 typedef PElem (*pCloneElemFunc)(PElem Elem);
-typedef PElem (*pDestroyElemFunc)(PElem ElemToDestroy);
+typedef void (*pDestroyElemFunc)(PElem ElemToDestroy);
 typedef BOOL (*pCompareElemsFunc)(PElem Elem1, PElem Elem2);
 typedef void (*pPrintElemFunc)(PElem Elem);
 
