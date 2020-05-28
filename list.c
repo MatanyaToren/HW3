@@ -8,7 +8,7 @@
 
   Abstract:
 
-    linked list with ADT
+    linked list handling with ADT
 
 */
 
@@ -27,9 +27,6 @@ typedef struct List_{pNode pFirstNode;
                     pCompareElemsFunc pCompareFunc;
                     pPrintElemFunc pPrintFunc;} List;
 
-/* statics */
-
-
 /* interface functions */
 
 /*
@@ -40,7 +37,7 @@ typedef struct List_{pNode pFirstNode;
 
     Create new linked list of ADT.
 
-  Parameters: user functions
+  Parameters: pointers to user functions
 
     pClone_Func   - pointer to function that clone an element
     pDestroy_Func - pointer to function that destroy an element
@@ -146,7 +143,7 @@ Result ListAdd(PList ListToAddElem, PElem ElemToAddIn){
     NewNode->Elem = NewElem;
 
     /* add in the new element to the list */
-    pNode AuxNode = ListToAddElem->pFirstNode;
+    pNode AuxNode = ListToAddElem->pFirstNode; // aux node for iterating
     if (ListToAddElem->pFirstNode == NULL){ // if the list is empty add to the head of the list
         ListToAddElem->pFirstNode = NewNode;
         NewNode->pNext = NULL;
@@ -156,7 +153,7 @@ Result ListAdd(PList ListToAddElem, PElem ElemToAddIn){
     while (AuxNode->pNext != NULL){
         AuxNode = AuxNode->pNext;
     }
-
+    /* insert the new node to the end of the list */
     AuxNode->pNext = NewNode;
     NewNode->pNext = NULL;
     return SUCCESS;
@@ -187,7 +184,7 @@ Result ListRemove(PList ListToRemoveElem, PElem ElemToRemove){
         return FAIL;
     }
 
-    pNode AuxNode = ListToRemoveElem->pFirstNode;
+    pNode AuxNode = ListToRemoveElem->pFirstNode; // aux node for iterating
 
     /* case is the first elem in the linked list */
     if (ListToRemoveElem->pCompareFunc(AuxNode->Elem, ElemToRemove)){
@@ -196,7 +193,8 @@ Result ListRemove(PList ListToRemoveElem, PElem ElemToRemove){
         free(AuxNode);
         return SUCCESS;
     }
-    pNode BeforeAuxNode = ListToRemoveElem->pFirstNode;
+
+    pNode BeforeAuxNode = ListToRemoveElem->pFirstNode; // another aux node to save the node before
     AuxNode = AuxNode->pNext;
     while (AuxNode != NULL){
         if (ListToRemoveElem->pCompareFunc(AuxNode->Elem, ElemToRemove)){
@@ -256,11 +254,11 @@ PElem ListGetFirst(PList ListToGetItsFirstElem){
 
   Parameters:
 
-    ListToGetItsFirstElem - pointer to head of the linked list we want to get its first element.
+    ListToGetItsIteratorValue - pointer to the linked list we want to get its iterator element value after iterating.
 
   Returns:
 
-    pointer to the first element in the linked list.
+    pointer to the iterator element in the linked list after iterating once.
 
 */
 
@@ -300,14 +298,14 @@ PElem ListGetNext(PList ListToGetItsIteratorValue){
 */
 
 BOOL ListCompare(PList List1, PList List2){
-    if (List1 == NULL && List2 == NULL){
+    if (List1 == NULL && List2 == NULL){ // case both empty
         return TRUE;
     }
-    if (List1 == NULL || List2 == NULL){
+    if (List1 == NULL || List2 == NULL){ // case only one of them empty
         return FALSE;
     }
-    pNode AuxNodeList1 = List1->pFirstNode;
-    pNode AuxNodeList2 = List2->pFirstNode;
+    pNode AuxNodeList1 = List1->pFirstNode; // aux node for iterating list1
+    pNode AuxNodeList2 = List2->pFirstNode; // aux node for iterating list2
     while(AuxNodeList1 != NULL && AuxNodeList2 != NULL){
         if (List1->pCompareFunc(AuxNodeList1->Elem, AuxNodeList2->Elem) &&
             List2->pCompareFunc(AuxNodeList1->Elem, AuxNodeList2->Elem)){
@@ -317,180 +315,40 @@ BOOL ListCompare(PList List1, PList List2){
         }
         return FALSE;
     }
+    /* finished iterating - case both get to the end */
     if (AuxNodeList1 == NULL && AuxNodeList2 == NULL){
         return TRUE;
     }
     return FALSE;
 }
 
+/*
+
+  Function: ListPrint
+
+  Abstract:
+
+    prints the linked list elements
+
+  Parameters:
+
+    ListToBePrinted - pointer to the linked list we want to print
+
+  Returns: --
+
+*/
+
 void ListPrint(PList ListToBePrinted){
-    if (ListToBePrinted == NULL){
+    if (ListToBePrinted == NULL){ //case of empty list
         printf("[]\n");
         return;
     }
-    pNode AuxNode = ListToBePrinted->pFirstNode;
+    pNode AuxNode = ListToBePrinted->pFirstNode; // iterator for printing
+    printf("[");
     while (AuxNode != NULL){
-        printf("[");
         ListToBePrinted->pPrintFunc(AuxNode->Elem);
-        printf("]\n");
+        printf("\n");
         AuxNode = AuxNode->pNext;
     }
-}
-
-/* int User Functions*/
-PElem Int_Copy (PElem Elem){
-    if (Elem == NULL){
-        return NULL;
-    }
-    int* New_int = (int*)malloc(sizeof(int));
-    if (New_int==NULL){
-        printf("MALLOC ERROR");
-        return NULL;
-    }
-    *New_int = *(int*)Elem;
-    return (PElem)New_int;
-}
-
-
-void Int_Delete (PElem Elem){
-    if (Elem == NULL){
-        return;
-    }
-    //free ((int*)Elem);
-    free ((int*)Elem);
-}
-
-
-BOOL Int_Compare (PElem Elem_a, PElem Elem_b){
-    if ( (Elem_a == NULL) || (Elem_b == NULL) ) {
-        return FALSE;
-    }
-    int int_a = *(int*)Elem_a , int_b = *(int*)Elem_b;
-    if (int_a == int_b){
-        return TRUE;
-    }
-    return FALSE;
-}
-
-
-void Int_Print (PElem Elem){
-    if (Elem == NULL){
-        return;
-    }
-    printf("%d",*(int*)Elem);
-}
-
-
-/* string User Functions*/
-PElem String_Copy (PElem Elem){
-    if (Elem == NULL){
-        return NULL;
-    }
-    char* Elem_char = (char*)Elem;
-    int Elem_length = strlen(Elem_char);
-    char* New_string = (char*)malloc(Elem_length+1);
-    if (New_string==NULL){
-        printf("MALLOC ERROR");
-        return NULL;
-    }
-    strcpy(New_string,(char*)Elem);
-    New_string[Elem_length]='\0';
-    return (PElem)New_string;
-}
-
-
-void String_Delete (PElem Elem){
-    if (Elem == NULL){
-        return;
-    }
-    //free ((char*)Elem);
-    free (Elem);
-}
-
-
-BOOL String_Compare (PElem Elem_a, PElem Elem_b){
-    if ( (Elem_a == NULL) || (Elem_b == NULL) ) {
-        return FALSE;
-    }
-    return !strcmp( (char*)Elem_a , (char*)Elem_b); //verify
-}
-
-void String_Print (PElem Elem){
-    if (Elem == NULL){
-        return;
-    }
-    printf("%s",(char*)Elem);
-}
-
-int main(){
-    PList Int_List=ListCreate(Int_Copy,Int_Delete,Int_Compare,Int_Print);
-    PList Int_List2=ListCreate(Int_Copy,Int_Delete,Int_Compare,Int_Print);
-
-
-
-    /* int Test*/
-    int X=5 , Y=2 , Z=6;
-    ListAdd(Int_List,&X);
-    ListAdd(Int_List,&Y);
-    ListAdd(Int_List,&Z);
-    ListPrint(Int_List);
-
-    int* a = (int*)ListGetFirst(Int_List);
-    int* b = (int*)ListGetFirst(Int_List);
-    int* c = (int*)ListGetNext(Int_List);
-    int* d = (int*)ListGetNext(Int_List);
-    int* e = (int*)ListGetFirst(Int_List);
-    int* f = (int*)ListGetNext(Int_List);
-    int* g = (int*)ListGetNext(Int_List);
-    //int* h = (int*)ListGetNext(Int_List);
-    //int* i = (int*)List_Get_Next(Int_List);
-    int i=100;
-    int* j = (int*)ListGetFirst(Int_List);
-    printf("%d %d %d %d %d %d %d %d %d\n",*a,*b,*c,*d,*e,*f,*g,i,*j);
-    X=3;
-    Y=2;
-    ListRemove(Int_List,&X);
-    ListRemove(Int_List,&Y);
-    ListPrint(Int_List);
-    Z=6;
-    ListAdd(Int_List,&Z);
-    ListAdd(Int_List,&Z);
-    ListRemove(Int_List,&Z);
-    ListPrint(Int_List);
-    ListCompare(Int_List, Int_List2);
-    ListDestroy(Int_List);
-    ListDestroy(Int_List2);
-
-
-
-    /* String test */
-    PList String_List=ListCreate(String_Copy,String_Delete,String_Compare,String_Print);
-    ListAdd(String_List,"yoav");
-    ListAdd(String_List,"Tehila");
-    ListAdd(String_List,"Alma");
-    ListPrint(String_List);
-    char* k = (char*)ListGetFirst(String_List);
-    char* l = (char*)ListGetFirst(String_List);
-    char* m = (char*)ListGetNext(String_List);
-    char* n = (char*)ListGetNext(String_List);
-    char* o = (char*)ListGetFirst(String_List);
-    char* p = (char*)ListGetNext(String_List);
-    char* q = (char*)ListGetNext(String_List);
-    char* r = (char*)ListGetNext(String_List);
-    char* s = (char*)ListGetNext(String_List);
-    char* t = (char*)ListGetFirst(String_List);
-    printf("%s %s %s %s %s %s %s %s %s %s\n",k,l,m,n,o,p,q,r,s,t);
-    ListRemove(String_List,"yoav");
-    ListRemove(String_List,"Alma");
-    ListPrint(String_List);
-    ListAdd(String_List,"rubin");
-    ListAdd(String_List,"rubin");
-    ListRemove(String_List,"rubin");
-    ListPrint(String_List);
-    ListDestroy(String_List);
-
-
-
-
-    return 0;
+    printf("]\n");
 }
