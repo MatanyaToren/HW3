@@ -347,7 +347,6 @@ void ListPrint(PList ListToBePrinted){
     printf("[");
     while (AuxNode != NULL){
         ListToBePrinted->pPrintFunc(AuxNode->Elem);
-        printf("\n");
         AuxNode = AuxNode->pNext;
     }
     printf("]\n");
