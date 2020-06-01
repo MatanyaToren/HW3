@@ -14,7 +14,6 @@
 
 /* includes */
 #include "student.h"
-#include "defs.h"
 
 /* typedefs */
 typedef struct Student_{char* name;
@@ -87,12 +86,13 @@ PStudent StudentCreate(char* pName, int AGE, int ID, char* pFaculty){
 
 */
 
-void printStudent(PStudent pStudent){
+void printStudent(PElem pStudent){
     if (pStudent == NULL){
         return;
     }
+    PStudent StudentToPrint = (PStudent)(pStudent);
     printf("Name: %s, Age: %d, ID: %d, Faculty: %s\n",
-            pStudent->name, pStudent->age, pStudent->id, pStudent->faculty);
+           StudentToPrint->name, StudentToPrint->age, StudentToPrint->id, StudentToPrint->faculty);
 }
 
 /*
@@ -111,13 +111,14 @@ void printStudent(PStudent pStudent){
 
 */
 
-void destroyStudent(PStudent StudentToDestroy){
+void destroyStudent(PElem StudentToDestroy){
     if (StudentToDestroy == NULL){
         return;
     }
-    free(StudentToDestroy->name);
-    free(StudentToDestroy->faculty);
-    free(StudentToDestroy);
+    PStudent StudentToFree = (PStudent)(StudentToDestroy);
+    free(StudentToFree->name);
+    free(StudentToFree->faculty);
+    free(StudentToFree);
 }
 
 /*
@@ -139,11 +140,15 @@ void destroyStudent(PStudent StudentToDestroy){
 
 */
 
-BOOL compareStudents(PStudent Student1, PStudent Student2){
+BOOL compareStudents(PElem Student1, PElem Student2){
     if (Student1 == NULL || Student2 == NULL ){
         return FALSE;
     }
-    return (Student1->id == Student2->id);
+    /* casting */
+    PStudent Stud1 = (PStudent)(Student1);
+    PStudent Stud2 = (PStudent)(Student2);
+    /* comparing */
+    return (Stud1->id == Stud2->id);
 }
 
 /*
@@ -164,30 +169,34 @@ BOOL compareStudents(PStudent Student1, PStudent Student2){
 
 */
 
-PStudent cloneStudent(PStudent StudentToBeCloned){
+PElem cloneStudent(PElem StudentToBeCloned){
     if (StudentToBeCloned == NULL){
         return NULL;
     }
+    /* casting */
+    PStudent StudentToCopy = (PStudent)(StudentToBeCloned);
+
     /* allocating new memory */
     PStudent ClonedStudent = (PStudent)malloc(sizeof(Student));
     if (ClonedStudent == NULL){
         return NULL;
     }
-    ClonedStudent->name = (char*)malloc(strlen(StudentToBeCloned->name)+1);
+    ClonedStudent->name = (char*)malloc(strlen(StudentToCopy->name)+1);
     if (ClonedStudent->name == NULL){
         free(ClonedStudent);
         return NULL;
     }
-    ClonedStudent->faculty = (char*)malloc(strlen(StudentToBeCloned->faculty)+1);
+    ClonedStudent->faculty = (char*)malloc(strlen(StudentToCopy->faculty)+1);
     if (ClonedStudent->faculty == NULL){
         free(ClonedStudent);
         return NULL;
     }
-    /* cloning */
-    strcpy(ClonedStudent->name,StudentToBeCloned->name);
-    ClonedStudent->id = StudentToBeCloned->id;
-    ClonedStudent->age = StudentToBeCloned->age;
-    strcpy(ClonedStudent->faculty,StudentToBeCloned->faculty);
 
-    return ClonedStudent;
+    /* cloning */
+    strcpy(ClonedStudent->name,StudentToCopy->name);
+    ClonedStudent->id = StudentToCopy->id;
+    ClonedStudent->age = StudentToCopy->age;
+    strcpy(ClonedStudent->faculty,StudentToCopy->faculty);
+
+    return (PElem)ClonedStudent;
 }
