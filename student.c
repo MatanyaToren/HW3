@@ -51,7 +51,6 @@ PStudent StudentCreate(char* pName, int AGE, int ID, char* pFaculty){
     if (NewStudent == NULL){
         return NULL;
     }
-
     NewStudent->name = (char*)malloc(strlen(pName)+1);
     if (NewStudent->name == NULL){
         free(NewStudent);
@@ -62,6 +61,7 @@ PStudent StudentCreate(char* pName, int AGE, int ID, char* pFaculty){
         free(NewStudent);
         return NULL;
     }
+
     /* insert student data */
     strcpy(NewStudent->name,pName);
     NewStudent->id = ID;
@@ -190,19 +190,4 @@ PStudent cloneStudent(PStudent StudentToBeCloned){
     strcpy(ClonedStudent->faculty,StudentToBeCloned->faculty);
 
     return ClonedStudent;
-}
-
-
-/*TEST*/
-int main(){
-    PStudent student1 = StudentCreate("shlomi sh",29,305428815,"ME");
-    printStudent(student1);
-    PStudent student2 = cloneStudent(student1);
-    printStudent(student2);
-    printf("%d", compareStudents(student1,student2));
-    destroyStudent(student1);
-    destroyStudent(student2);
-    return 0;
-
-
 }
