@@ -255,7 +255,8 @@ int PointSquareDistance(PPoint Point1, PPoint Point2)
 	tmp2 = PointGetFirstCoordinate(Point2);
 	Distance = (tmp1 - tmp2) * (tmp1 - tmp2);
 	
-	for (int i = 1; i < Point1->inSoFar; i++) {
+	int i;
+	for (i = 1; i < Point1->inSoFar; i++) {
 		tmp1 = PointGetNextCoordinate(Point1);
 		tmp2 = PointGetNextCoordinate(Point2);
 		Distance += (tmp1 - tmp2) * (tmp1 - tmp2);
