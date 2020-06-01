@@ -15,7 +15,7 @@
 /* includes */
 #include "student.h"
 #include "defs.h"
-
+#include "list.h"
 /* typedefs */
 typedef struct Student_{char* name;
                         int age, id;
@@ -51,10 +51,22 @@ PStudent StudentCreate(char* pName, int AGE, int ID, char* pFaculty){
     if (NewStudent == NULL){
         return NULL;
     }
-    strcat(NewStudent->name,pName);
+
+    NewStudent->name = (char*)malloc(strlen(pName)+1);
+    if (NewStudent->name == NULL){
+        free(NewStudent);
+        return NULL;
+    }
+    NewStudent->faculty = (char*)malloc(strlen(pFaculty)+1);
+    if (NewStudent->faculty == NULL){
+        free(NewStudent);
+        return NULL;
+    }
+    /* insert student data */
+    strcpy(NewStudent->name,pName);
     NewStudent->id = ID;
     NewStudent->age = AGE;
-    strcat(NewStudent->faculty,pFaculty);
+    strcpy(NewStudent->faculty,pFaculty);
 
     return NewStudent;
 }
@@ -103,6 +115,8 @@ void destroyStudent(PStudent StudentToDestroy){
     if (StudentToDestroy == NULL){
         return;
     }
+    free(StudentToDestroy->name);
+    free(StudentToDestroy->faculty);
     free(StudentToDestroy);
 }
 
@@ -130,4 +144,65 @@ BOOL compareStudents(PStudent Student1, PStudent Student2){
         return FALSE;
     }
     return (Student1->id == Student2->id);
+}
+
+/*
+
+  Function: cloneStudent
+
+  Abstract:
+
+    clone student
+
+  Parameters:
+
+    StudentToBeCloned - pointer to a student we want to clone
+
+  Returns:
+
+    ClonedStudent - a copy of the student we gave;
+
+*/
+
+PStudent cloneStudent(PStudent StudentToBeCloned){
+    if (StudentToBeCloned == NULL){
+        return NULL;
+    }
+    /* allocating new memory */
+    PStudent ClonedStudent = (PStudent)malloc(sizeof(Student));
+    if (ClonedStudent == NULL){
+        return NULL;
+    }
+    ClonedStudent->name = (char*)malloc(strlen(StudentToBeCloned->name)+1);
+    if (ClonedStudent->name == NULL){
+        free(ClonedStudent);
+        return NULL;
+    }
+    ClonedStudent->faculty = (char*)malloc(strlen(StudentToBeCloned->faculty)+1);
+    if (ClonedStudent->faculty == NULL){
+        free(ClonedStudent);
+        return NULL;
+    }
+    /* cloning */
+    strcpy(ClonedStudent->name,StudentToBeCloned->name);
+    ClonedStudent->id = StudentToBeCloned->id;
+    ClonedStudent->age = StudentToBeCloned->age;
+    strcpy(ClonedStudent->faculty,StudentToBeCloned->faculty);
+
+    return ClonedStudent;
+}
+
+
+/*TEST*/
+int main(){
+    PStudent student1 = StudentCreate("shlomi sh",29,305428815,"ME");
+    printStudent(student1);
+    PStudent student2 = cloneStudent(student1);
+    printStudent(student2);
+    printf("%d", compareStudents(student1,student2));
+    destroyStudent(student1);
+    destroyStudent(student2);
+    return 0;
+
+
 }
