@@ -89,6 +89,12 @@
 		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/list.h">
 			<Option target="HW3"/>
 		</Unit>
+		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/student.c">
+			<Option target="HW3"/>
+		</Unit>
+		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/student.h">
+			<Option target="HW3"/>
+		</Unit>
 		<Unit filename="/Users/shlomishetrit/Documents/GitHub/HW3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

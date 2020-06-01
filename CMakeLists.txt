@@ -8,4 +8,4 @@ include_directories(.)
 add_executable(HW3
         defs.h
         list.h
-        list.c)
+        list.c student.c)

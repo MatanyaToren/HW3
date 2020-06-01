@@ -150,6 +150,33 @@ list.c.s:
 	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/list.c.s
 .PHONY : list.c.s
 
+student.o: student.c.o
+
+.PHONY : student.o
+
+# target to build an object file
+student.c.o:
+	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/student.c.o
+.PHONY : student.c.o
+
+student.i: student.c.i
+
+.PHONY : student.i
+
+# target to preprocess a source file
+student.c.i:
+	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/student.c.i
+.PHONY : student.c.i
+
+student.s: student.c.s
+
+.PHONY : student.s
+
+# target to generate assembly for a file
+student.c.s:
+	$(MAKE) -f CMakeFiles/HW3.dir/build.make CMakeFiles/HW3.dir/student.c.s
+.PHONY : student.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +189,9 @@ help:
 	@echo "... list.o"
 	@echo "... list.i"
 	@echo "... list.s"
+	@echo "... student.o"
+	@echo "... student.i"
+	@echo "... student.s"
 .PHONY : help
 
 

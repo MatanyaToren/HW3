@@ -1,7 +1,19 @@
 
+/*
+
+  File: list.h
+
+  Abstract:
+
+    linked list handling with ADT header file
+
+*/
+
+
 #ifndef _LIST_H_
 #define _LIST_H_
 
+/*includes*/
 #include "defs.h"
 #include <stdio.h>
 #include <stdlib.h>
