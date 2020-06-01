@@ -15,7 +15,7 @@
 /* includes */
 #include "student.h"
 #include "defs.h"
-#include "list.h"
+
 /* typedefs */
 typedef struct Student_{char* name;
                         int age, id;
@@ -160,7 +160,7 @@ BOOL compareStudents(PStudent Student1, PStudent Student2){
 
   Returns:
 
-    ClonedStudent - a copy of the student we gave;
+    ClonedStudent - a pointer to the copy of the student we gave;
 
 */
 
