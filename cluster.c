@@ -162,5 +162,5 @@ void ClusterPrint(PCluster curCluster)
 		PointPrint(tmpPoint);
 	}
 	printf("]\n");
-	printf("Minimum Square Distance: %d", curCluster->minDist);
+	printf("Minimum Square Distance: %d\n", curCluster->minDist);
 }
