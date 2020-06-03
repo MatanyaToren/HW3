@@ -5,12 +5,15 @@
 
 # Parameters:
 #
-#  dir - directory we want to count preprocessor commands in.
+#  dir - directory we want to count preprocessor commands inside.
 #
 # Returns:
 #
 #  number of the preprocessor commands.
 
 dir="$1"
-counter=`gcc -E -dM "$dir"/*.c | wc -l`
+all_lines=`gcc -E "$dir"/*.c | wc -l`
+c_files_lines=`cat "$dir"/*.c | wc -l`
+hashtag_lines=`grep "#" "$dir"/*.c | wc -l` # not sure about that.
+((counter=$all_lines-$c_files_lines-$hashtag_lines))
 echo $counter
