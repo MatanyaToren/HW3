@@ -1,3 +1,4 @@
+
 //
 // Created by Shlomi Shitrit on 26/05/2020.
 //
@@ -350,4 +351,45 @@ void ListPrint(PList ListToBePrinted){
         AuxNode = AuxNode->pNext;
     }
     printf("]\n");
+}
+
+
+
+
+/*
+  Function: ListCpy
+  Abstract:
+    Copies a List
+  Parameters:
+    ListToCpy - pointer to the linked list we want to copy
+  Returns: 
+    pointer to the new List
+*/
+
+PList ListCpy(PList ListToCpy) {
+    if (!ListToCpy)
+        return NULL;
+
+    // create new empty List
+    PList NewList = ListCreate(ListToCpy->pCloneFunc, ListToCpy->pDestroyFunc, ListToCpy->pCompareFunc, ListToCpy->pPrintFunc);
+    if (!NewList)
+        return NULL;
+    
+    // preserve the Iterator of the List to be copied
+    pNode originalNode = ListToCpy->Iterator;
+    
+    // copy the first List element
+    PElem tmpElem = ListGetFirst(ListToCpy);
+    if (!ListAdd(NewList, tmpElem))
+        return NewList;
+    
+    // copy the rest of the List elements
+    while (( tmpElem = ListGetNext(ListToCpy) )) {
+        if (!ListAdd(NewList, tmpElem))
+            break;
+    }
+
+    ListToCpy->Iterator = originalNode;
+
+    return NewList;
 }
