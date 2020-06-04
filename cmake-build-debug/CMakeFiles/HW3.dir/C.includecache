@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/shlomishetrit/Documents/GitHub/HW3/defs.h
+
+/Users/shlomishetrit/Documents/GitHub/HW3/list.h
+defs.h
+/Users/shlomishetrit/Documents/GitHub/HW3/defs.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+
+/Users/shlomishetrit/Documents/GitHub/HW3/student.c
+student.h
+/Users/shlomishetrit/Documents/GitHub/HW3/student.h
+defs.h
+/Users/shlomishetrit/Documents/GitHub/HW3/defs.h
+
+/Users/shlomishetrit/Documents/GitHub/HW3/student.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+list.h
+/Users/shlomishetrit/Documents/GitHub/HW3/list.h
+
