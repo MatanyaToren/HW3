@@ -1,4 +1,3 @@
-
 //
 // Created by Shlomi Shitrit on 26/05/2020.
 //
@@ -237,7 +236,7 @@ Result ListRemove(PList ListToRemoveElem, PElem ElemToRemove){
 */
 
 PElem ListGetFirst(PList ListToGetItsFirstElem){
-    if (ListToGetItsFirstElem == NULL){
+    if (ListToGetItsFirstElem == NULL || ListToGetItsFirstElem->pFirstNode == NULL){
         return NULL;
     }
     ListToGetItsFirstElem->Iterator = ListToGetItsFirstElem->pFirstNode;
