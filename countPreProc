@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# first parameter: name of directory
+
+# this script counts all the lines the pre-proccessor
+# adds to .c files in the input directory
+
+if [[ $# != 1 || ! -d "$1" ]]; then
+	echo error!
+	exit 1
+fi
+
+sum=0
+for file in "$1"/*; do
+	if [[ -f "$file" && "$file" == *.c ]]; then
+		preNum=`gcc -E "$file" | wc -l`
+		fileNum=`cat "$file" | wc -l`
+		(( sum += preNum - fileNum ))
+	fi
+done
+
+echo $sum
+exit 0
